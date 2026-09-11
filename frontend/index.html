@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Student Success Predictor</title>
 
@@ -14,1013 +11,1458 @@
 
 <body>
 
-    <div class="page-shell">
+<div class="app-shell">
 
-        <!-- =====================================================
-             HEADER
-        ====================================================== -->
+    <!-- =========================
+         SIDEBAR / BRAND
+    ========================== -->
 
-        <header class="hero">
+    <aside class="sidebar">
 
-            <div class="hero-content">
+        <div class="brand">
+            <div class="brand-symbol">S</div>
 
-                <div class="brand-mark">
-                    <span class="brand-icon">✦</span>
-                    <span>Student ML</span>
+            <div>
+                <div class="brand-name">StudentIQ</div>
+                <div class="brand-subtitle">Success Predictor</div>
+            </div>
+        </div>
+
+        <div class="sidebar-divider"></div>
+
+        <div class="sidebar-label">
+            PREDICTION WORKFLOW
+        </div>
+
+        <nav class="steps">
+
+            <a href="#profile" class="step active">
+                <span class="step-number">01</span>
+                <span>Profile</span>
+            </a>
+
+            <a href="#admission" class="step">
+                <span class="step-number">02</span>
+                <span>Admission</span>
+            </a>
+
+            <a href="#status" class="step">
+                <span class="step-number">03</span>
+                <span>Status</span>
+            </a>
+
+            <a href="#semester1" class="step">
+                <span class="step-number">04</span>
+                <span>Semester 1</span>
+            </a>
+
+            <a href="#semester2" class="step">
+                <span class="step-number">05</span>
+                <span>Semester 2</span>
+            </a>
+
+            <a href="#economic" class="step">
+                <span class="step-number">06</span>
+                <span>Economic Context</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="model-status">
+                <span class="status-dot"></span>
+
+                <div>
+                    <strong>Model Online</strong>
+                    <small>Random Forest</small>
                 </div>
+            </div>
 
-                <div class="hero-badge">
-                    RANDOM FOREST MODEL
-                </div>
+            <div class="sidebar-credit">
+                ML Student Outcome Classification
+            </div>
 
-                <h1>
-                    Student Success
-                    <span>Predictor</span>
-                </h1>
+        </div>
 
-                <p class="hero-description">
-                    Enter a student's academic and background information
-                    to predict their final academic outcome.
+    </aside>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+                <span class="eyebrow">
+                    MACHINE LEARNING / PREDICTION
+                </span>
+
+                <h1>Student Success Predictor</h1>
+
+                <p>
+                    Complete the student's profile to estimate their
+                    final academic outcome.
                 </p>
+            </div>
 
+            <div class="topbar-badge">
+                <span class="live-dot"></span>
+                API READY
             </div>
 
         </header>
 
 
-        <!-- =====================================================
-             MAIN
-        ====================================================== -->
+        <!-- =========================
+             FORM
+        ========================== -->
 
-        <main>
+        <form id="prediction-form" novalidate>
 
-            <form id="prediction-form" novalidate>
 
-                <!-- =================================================
-                     SECTION 1 — STUDENT PROFILE
-                ================================================== -->
-
-                <section class="form-section">
-
-                    <div class="section-heading">
-
-                        <div class="section-number">
-                            01
-                        </div>
-
-                        <div>
-                            <h2>Student Profile</h2>
-                            <p>
-                                Basic demographic and personal information.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-grid">
-
-                        <div class="field">
-                            <label for="marital-status">
-                                Marital Status
-                            </label>
-
-                            <input
-                                id="marital-status"
-                                type="number"
-                                data-key="Marital Status"
-                                min="0"
-                                required
-                            >
-
-                            <small>Dataset category code</small>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="gender">
-                                Gender
-                            </label>
-
-                            <select
-                                id="gender"
-                                data-key="Gender"
-                                required
-                            >
-                                <option value="">Select</option>
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                            </select>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="age">
-                                Age at Enrollment
-                            </label>
-
-                            <input
-                                id="age"
-                                type="number"
-                                data-key="Age at enrollment"
-                                min="0"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="nationality">
-                                Nationality
-                            </label>
-
-                            <input
-                                id="nationality"
-                                type="number"
-                                data-key="Nacionality"
-                                min="0"
-                                required
-                            >
-
-                            <small>Dataset category code</small>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="displaced">
-                                Displaced
-                            </label>
-
-                            <select
-                                id="displaced"
-                                data-key="Displaced"
-                                required
-                            >
-                                <option value="">Select</option>
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="international">
-                                International
-                            </label>
-
-                            <select
-                                id="international"
-                                data-key="International"
-                                required
-                            >
-                                <option value="">Select</option>
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="special-needs">
-                                Educational Special Needs
-                            </label>
-
-                            <select
-                                id="special-needs"
-                                data-key="Educational special needs"
-                                required
-                            >
-                                <option value="">Select</option>
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- =================================================
-                     SECTION 2 — ADMISSION & ACADEMIC BACKGROUND
-                ================================================== -->
-
-                <section class="form-section">
-
-                    <div class="section-heading">
-
-                        <div class="section-number">
-                            02
-                        </div>
-
-                        <div>
-                            <h2>Admission & Academic Background</h2>
-                            <p>
-                                Admission information and educational background.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-grid">
-
-                        <div class="field">
-                            <label for="application-mode">
-                                Application Mode
-                            </label>
-
-                            <input
-                                id="application-mode"
-                                type="number"
-                                data-key="Application mode"
-                                min="0"
-                                required
-                            >
-
-                            <small>Dataset category code</small>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="application-order">
-                                Application Order
-                            </label>
-
-                            <input
-                                id="application-order"
-                                type="number"
-                                data-key="Application order"
-                                min="0"
-                                required
-                            >
-
-                            <small>Dataset category code</small>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="course">
-                                Course
-                            </label>
-
-                            <input
-                                id="course"
-                                type="number"
-                                data-key="Course"
-                                min="0"
-                                required
-                            >
-
-                            <small>Dataset category code</small>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="attendance">
-                                Daytime / Evening Attendance
-                            </label>
-
-                            <input
-                                id="attendance"
-                                type="number"
-                                data-key="Daytime/evening attendance"
-                                min="0"
-                                required
-                            >
-
-                            <small>Dataset category code</small>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="previous-qualification">
-                                Previous Qualification
-                            </label>
-
-                            <input
-                                id="previous-qualification"
-                                type="number"
-                                data-key="Previous qualification"
-                                min="0"
-                                required
-                            >
-
-                            <small>Dataset category code</small>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="previous-grade">
-                                Previous Qualification Grade
-                            </label>
-
-                            <input
-                                id="previous-grade"
-                                type="number"
-                                data-key="Previous qualification (grade)"
-                                step="0.1"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="admission-grade">
-                                Admission Grade
-                            </label>
-
-                            <input
-                                id="admission-grade"
-                                type="number"
-                                data-key="Admission grade"
-                                step="0.1"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="mother-qualification">
-                                Mother's Qualification
-                            </label>
-
-                            <input
-                                id="mother-qualification"
-                                type="number"
-                                data-key="Mother's qualification"
-                                min="0"
-                                required
-                            >
-
-                            <small>Dataset category code</small>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="father-qualification">
-                                Father's Qualification
-                            </label>
-
-                            <input
-                                id="father-qualification"
-                                type="number"
-                                data-key="Father's qualification"
-                                min="0"
-                                required
-                            >
-
-                            <small>Dataset category code</small>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="mother-occupation">
-                                Mother's Occupation
-                            </label>
-
-                            <input
-                                id="mother-occupation"
-                                type="number"
-                                data-key="Mother's occupation"
-                                min="0"
-                                required
-                            >
-
-                            <small>Dataset category code</small>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="father-occupation">
-                                Father's Occupation
-                            </label>
-
-                            <input
-                                id="father-occupation"
-                                type="number"
-                                data-key="Father's occupation"
-                                min="0"
-                                required
-                            >
-
-                            <small>Dataset category code</small>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="scholarship">
-                                Scholarship Holder
-                            </label>
-
-                            <select
-                                id="scholarship"
-                                data-key="Scholarship holder"
-                                required
-                            >
-                                <option value="">Select</option>
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- =================================================
-                     SECTION 3 — FINANCIAL STATUS
-                ================================================== -->
-
-                <section class="form-section">
-
-                    <div class="section-heading">
-
-                        <div class="section-number">
-                            03
-                        </div>
-
-                        <div>
-                            <h2>Financial & Enrollment Status</h2>
-                            <p>
-                                Information related to tuition and financial status.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-grid">
-
-                        <div class="field">
-                            <label for="debtor">
-                                Debtor
-                            </label>
-
-                            <select
-                                id="debtor"
-                                data-key="Debtor"
-                                required
-                            >
-                                <option value="">Select</option>
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
-                        </div>
-
-
-                        <div class="field">
-                            <label for="tuition">
-                                Tuition Fees Up to Date
-                            </label>
-
-                            <select
-                                id="tuition"
-                                data-key="Tuition fees up to date"
-                                required
-                            >
-                                <option value="">Select</option>
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- =================================================
-                     SECTION 4 — SEMESTER 1
-                ================================================== -->
-
-                <section class="form-section">
-
-                    <div class="section-heading">
-
-                        <div class="section-number">
-                            04
-                        </div>
-
-                        <div>
-                            <h2>Semester 1 Performance</h2>
-                            <p>
-                                Academic activity and performance during the first semester.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-grid">
-
-                        <div class="field">
-                            <label for="sem1-credited">
-                                Units Credited
-                            </label>
-
-                            <input
-                                id="sem1-credited"
-                                type="number"
-                                data-key="Curricular units 1st sem (credited)"
-                                min="0"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="sem1-enrolled">
-                                Units Enrolled
-                            </label>
-
-                            <input
-                                id="sem1-enrolled"
-                                type="number"
-                                data-key="Curricular units 1st sem (enrolled)"
-                                min="0"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="sem1-evaluations">
-                                Evaluations
-                            </label>
-
-                            <input
-                                id="sem1-evaluations"
-                                type="number"
-                                data-key="Curricular units 1st sem (evaluations)"
-                                min="0"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="sem1-approved">
-                                Units Approved
-                            </label>
-
-                            <input
-                                id="sem1-approved"
-                                type="number"
-                                data-key="Curricular units 1st sem (approved)"
-                                min="0"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="sem1-grade">
-                                Semester 1 Grade
-                            </label>
-
-                            <input
-                                id="sem1-grade"
-                                type="number"
-                                data-key="Curricular units 1st sem (grade)"
-                                step="0.01"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="sem1-without-evaluations">
-                                Units Without Evaluations
-                            </label>
-
-                            <input
-                                id="sem1-without-evaluations"
-                                type="number"
-                                data-key="Curricular units 1st sem (without evaluations)"
-                                min="0"
-                                required
-                            >
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- =================================================
-                     SECTION 5 — SEMESTER 2
-                ================================================== -->
-
-                <section class="form-section">
-
-                    <div class="section-heading">
-
-                        <div class="section-number">
-                            05
-                        </div>
-
-                        <div>
-                            <h2>Semester 2 Performance</h2>
-                            <p>
-                                Academic activity and performance during the second semester.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-grid">
-
-                        <div class="field">
-                            <label for="sem2-credited">
-                                Units Credited
-                            </label>
-
-                            <input
-                                id="sem2-credited"
-                                type="number"
-                                data-key="Curricular units 2nd sem (credited)"
-                                min="0"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="sem2-enrolled">
-                                Units Enrolled
-                            </label>
-
-                            <input
-                                id="sem2-enrolled"
-                                type="number"
-                                data-key="Curricular units 2nd sem (enrolled)"
-                                min="0"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="sem2-evaluations">
-                                Evaluations
-                            </label>
-
-                            <input
-                                id="sem2-evaluations"
-                                type="number"
-                                data-key="Curricular units 2nd sem (evaluations)"
-                                min="0"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="sem2-approved">
-                                Units Approved
-                            </label>
-
-                            <input
-                                id="sem2-approved"
-                                type="number"
-                                data-key="Curricular units 2nd sem (approved)"
-                                min="0"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="sem2-grade">
-                                Semester 2 Grade
-                            </label>
-
-                            <input
-                                id="sem2-grade"
-                                type="number"
-                                data-key="Curricular units 2nd sem (grade)"
-                                step="0.01"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="sem2-without-evaluations">
-                                Units Without Evaluations
-                            </label>
-
-                            <input
-                                id="sem2-without-evaluations"
-                                type="number"
-                                data-key="Curricular units 2nd sem (without evaluations)"
-                                min="0"
-                                required
-                            >
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- =================================================
-                     SECTION 6 — ECONOMIC CONTEXT
-                ================================================== -->
-
-                <section class="form-section">
-
-                    <div class="section-heading">
-
-                        <div class="section-number">
-                            06
-                        </div>
-
-                        <div>
-                            <h2>Economic Context</h2>
-                            <p>
-                                Macroeconomic indicators associated with the student's dataset record.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-grid form-grid-three">
-
-                        <div class="field">
-                            <label for="unemployment">
-                                Unemployment Rate
-                            </label>
-
-                            <input
-                                id="unemployment"
-                                type="number"
-                                data-key="Unemployment rate"
-                                step="0.01"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="inflation">
-                                Inflation Rate
-                            </label>
-
-                            <input
-                                id="inflation"
-                                type="number"
-                                data-key="Inflation rate"
-                                step="0.01"
-                                required
-                            >
-                        </div>
-
-
-                        <div class="field">
-                            <label for="gdp">
-                                GDP
-                            </label>
-
-                            <input
-                                id="gdp"
-                                type="number"
-                                data-key="GDP"
-                                step="0.01"
-                                required
-                            >
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- =================================================
-                     PREDICTION ACTION
-                ================================================== -->
-
-                <div class="prediction-action">
-
-                    <div class="action-text">
-
-                        <span class="action-icon">✦</span>
-
-                        <div>
-                            <strong>Ready to predict?</strong>
-                            <p>
-                                The model will analyse all 36 student features.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        type="submit"
-                        id="predict-button"
-                        class="predict-button"
-                    >
-                        <span class="button-text">
-                            Predict Outcome
-                        </span>
-
-                        <span class="button-arrow">
-                            →
-                        </span>
-                    </button>
-
-                </div>
-
-            </form>
-
-
-            <!-- =====================================================
-                 ERROR MESSAGE
-            ====================================================== -->
-
-            <div
-                id="error-message"
-                class="error-message hidden"
-                role="alert"
-            >
-                <span>!</span>
-                <p id="error-text"></p>
-            </div>
-
-
-            <!-- =====================================================
-                 RESULT
-            ====================================================== -->
+            <!-- =========================
+                 PROFILE
+            ========================== -->
 
             <section
-                id="result-section"
-                class="result-section hidden"
+                id="profile"
+                class="form-card"
             >
 
-                <div class="result-header">
+                <div class="section-header">
+
+                    <div class="section-icon purple">
+                        ◈
+                    </div>
 
                     <div>
-                        <span class="result-eyebrow">
-                            MODEL PREDICTION
+                        <span class="section-kicker">
+                            SECTION 01
                         </span>
 
-                        <h2>Prediction Result</h2>
-                    </div>
-
-                    <button
-                        type="button"
-                        id="new-prediction"
-                        class="secondary-button"
-                    >
-                        New Prediction
-                    </button>
-
-                </div>
-
-
-                <div class="result-main">
-
-                    <div class="prediction-card">
-
-                        <span class="prediction-label">
-                            Predicted Outcome
-                        </span>
-
-                        <div
-                            id="prediction-value"
-                            class="prediction-value"
-                        >
-                            —
-                        </div>
+                        <h2>Student Profile</h2>
 
                         <p>
-                            Based on the student's submitted academic,
-                            demographic and financial information.
+                            Personal and demographic information.
                         </p>
-
-                    </div>
-
-
-                    <div class="probability-card">
-
-                        <div class="card-title-row">
-                            <h3>Model Probabilities</h3>
-
-                            <span class="info-badge">
-                                RF
-                            </span>
-                        </div>
-
-
-                        <div class="probability-row">
-
-                            <div class="probability-info">
-                                <span>Dropout</span>
-                                <strong id="dropout-probability">
-                                    0%
-                                </strong>
-                            </div>
-
-                            <div class="progress-track">
-                                <div
-                                    id="dropout-bar"
-                                    class="progress-bar dropout-bar"
-                                ></div>
-                            </div>
-
-                        </div>
-
-
-                        <div class="probability-row">
-
-                            <div class="probability-info">
-                                <span>Enrolled</span>
-                                <strong id="enrolled-probability">
-                                    0%
-                                </strong>
-                            </div>
-
-                            <div class="progress-track">
-                                <div
-                                    id="enrolled-bar"
-                                    class="progress-bar enrolled-bar"
-                                ></div>
-                            </div>
-
-                        </div>
-
-
-                        <div class="probability-row">
-
-                            <div class="probability-info">
-                                <span>Graduate</span>
-                                <strong id="graduate-probability">
-                                    0%
-                                </strong>
-                            </div>
-
-                            <div class="progress-track">
-                                <div
-                                    id="graduate-bar"
-                                    class="progress-bar graduate-bar"
-                                ></div>
-                            </div>
-
-                        </div>
-
                     </div>
 
                 </div>
 
 
-                <div class="result-note">
+                <div class="field-grid">
 
-                    <span class="note-icon">
-                        i
-                    </span>
+                    <div class="field">
+                        <label>Marital Status</label>
 
-                    <p>
-                        The displayed percentages are the Random Forest
-                        model's probability estimates for each class.
-                        They should not be interpreted as guaranteed outcomes.
-                    </p>
+                        <select
+                            data-key="Marital Status"
+                            required
+                        >
+                            <option value="">Choose status</option>
+                            <option value="1">Single</option>
+                            <option value="2">Married</option>
+                            <option value="3">Widower</option>
+                            <option value="4">Divorced</option>
+                            <option value="5">Facto union</option>
+                            <option value="6">Legally separated</option>
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Gender</label>
+
+                        <select
+                            data-key="Gender"
+                            required
+                        >
+                            <option value="">Choose gender</option>
+                            <option value="1">Male</option>
+                            <option value="0">Female</option>
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Age at Enrollment</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            max="100"
+                            step="1"
+                            data-key="Age at enrollment"
+                            placeholder="e.g. 20"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="field">
+                        <label>Nationality</label>
+
+                        <select
+                            data-key="Nacionality"
+                            required
+                        >
+                            <option value="">Choose nationality</option>
+                            <option value="1">Portuguese</option>
+                            <option value="2">German</option>
+                            <option value="6">Spanish</option>
+                            <option value="11">Italian</option>
+                            <option value="13">Dutch</option>
+                            <option value="14">English</option>
+                            <option value="17">Lithuanian</option>
+                            <option value="21">Angolan</option>
+                            <option value="22">Cape Verdean</option>
+                            <option value="24">Guinean</option>
+                            <option value="25">Mozambican</option>
+                            <option value="26">Santomean</option>
+                            <option value="32">Turkish</option>
+                            <option value="41">Brazilian</option>
+                            <option value="62">Romanian</option>
+                            <option value="100">Moldova</option>
+                            <option value="101">Mexican</option>
+                            <option value="103">Ukrainian</option>
+                            <option value="105">Russian</option>
+                            <option value="108">Cuban</option>
+                            <option value="109">Colombian</option>
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Displaced</label>
+
+                        <select
+                            data-key="Displaced"
+                            required
+                        >
+                            <option value="">Select</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>International Student</label>
+
+                        <select
+                            data-key="International"
+                            required
+                        >
+                            <option value="">Select</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Educational Special Needs</label>
+
+                        <select
+                            data-key="Educational special needs"
+                            required
+                        >
+                            <option value="">Select</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
 
                 </div>
 
             </section>
 
-        </main>
+
+            <!-- =========================
+                 ADMISSION
+            ========================== -->
+
+            <section
+                id="admission"
+                class="form-card"
+            >
+
+                <div class="section-header">
+
+                    <div class="section-icon blue">
+                        ◇
+                    </div>
+
+                    <div>
+                        <span class="section-kicker">
+                            SECTION 02
+                        </span>
+
+                        <h2>Admission & Academic Background</h2>
+
+                        <p>
+                            Admission pathway and previous educational history.
+                        </p>
+                    </div>
+
+                </div>
 
 
-        <!-- =====================================================
-             FOOTER
-        ====================================================== -->
+                <div class="field-grid">
+
+                    <div class="field">
+                        <label>Application Mode</label>
+
+                        <select
+                            data-key="Application mode"
+                            required
+                        >
+                            <option value="">Choose application route</option>
+
+                            <option value="1">
+                                1st phase — general contingent
+                            </option>
+
+                            <option value="2">
+                                Ordinance No. 612/93
+                            </option>
+
+                            <option value="5">
+                                Special contingent — Azores
+                            </option>
+
+                            <option value="7">
+                                Holder of another higher course
+                            </option>
+
+                            <option value="10">
+                                Ordinance No. 854-B/99
+                            </option>
+
+                            <option value="15">
+                                International student
+                            </option>
+
+                            <option value="16">
+                                Special contingent — Madeira
+                            </option>
+
+                            <option value="17">
+                                2nd phase — general contingent
+                            </option>
+
+                            <option value="18">
+                                3rd phase — general contingent
+                            </option>
+
+                            <option value="26">
+                                Ordinance No. 533-A/99 — different plan
+                            </option>
+
+                            <option value="27">
+                                Ordinance No. 533-A/99 — other institution
+                            </option>
+
+                            <option value="39">
+                                Over 23 years old
+                            </option>
+
+                            <option value="42">
+                                Transfer
+                            </option>
+
+                            <option value="43">
+                                Change of course
+                            </option>
+
+                            <option value="44">
+                                Technological specialization diploma
+                            </option>
+
+                            <option value="51">
+                                Change of institution/course
+                            </option>
+
+                            <option value="53">
+                                Short cycle diploma
+                            </option>
+
+                            <option value="57">
+                                International institution/course change
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Application Order</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            max="9"
+                            step="1"
+                            data-key="Application order"
+                            placeholder="0 – 9"
+                            required
+                        >
+
+                        <span class="field-hint">
+                            Lower value means a higher preference.
+                        </span>
+                    </div>
+
+
+                    <div class="field field-wide">
+                        <label>Course</label>
+
+                        <select
+                            data-key="Course"
+                            required
+                        >
+                            <option value="">Choose course</option>
+
+                            <option value="33">
+                                Biofuel Production Technologies
+                            </option>
+
+                            <option value="171">
+                                Animation and Multimedia Design
+                            </option>
+
+                            <option value="8014">
+                                Social Service — Evening
+                            </option>
+
+                            <option value="9003">
+                                Agronomy
+                            </option>
+
+                            <option value="9070">
+                                Communication Design
+                            </option>
+
+                            <option value="9085">
+                                Veterinary Nursing
+                            </option>
+
+                            <option value="9119">
+                                Informatics Engineering
+                            </option>
+
+                            <option value="9130">
+                                Equinculture
+                            </option>
+
+                            <option value="9147">
+                                Management
+                            </option>
+
+                            <option value="9238">
+                                Social Service
+                            </option>
+
+                            <option value="9254">
+                                Tourism
+                            </option>
+
+                            <option value="9500">
+                                Nursing
+                            </option>
+
+                            <option value="9556">
+                                Oral Hygiene
+                            </option>
+
+                            <option value="9670">
+                                Advertising and Marketing Management
+                            </option>
+
+                            <option value="9773">
+                                Journalism and Communication
+                            </option>
+
+                            <option value="9853">
+                                Basic Education
+                            </option>
+
+                            <option value="9991">
+                                Management — Evening
+                            </option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Attendance</label>
+
+                        <select
+                            data-key="Daytime/evening attendance"
+                            required
+                        >
+                            <option value="">Choose schedule</option>
+                            <option value="1">Daytime</option>
+                            <option value="0">Evening</option>
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Previous Qualification</label>
+
+                        <select
+                            data-key="Previous qualification"
+                            required
+                        >
+                            <option value="">Choose qualification</option>
+
+                            <option value="1">
+                                Secondary education
+                            </option>
+
+                            <option value="2">
+                                Higher education — Bachelor's degree
+                            </option>
+
+                            <option value="3">
+                                Higher education — Degree
+                            </option>
+
+                            <option value="4">
+                                Higher education — Master's
+                            </option>
+
+                            <option value="5">
+                                Higher education — Doctorate
+                            </option>
+
+                            <option value="6">
+                                Frequency of higher education
+                            </option>
+
+                            <option value="9">
+                                12th year — not completed
+                            </option>
+
+                            <option value="10">
+                                11th year — not completed
+                            </option>
+
+                            <option value="12">
+                                Other — 11th year
+                            </option>
+
+                            <option value="14">
+                                10th year
+                            </option>
+
+                            <option value="15">
+                                10th year — not completed
+                            </option>
+
+                            <option value="19">
+                                Basic education 3rd cycle
+                            </option>
+
+                            <option value="38">
+                                Basic education 2nd cycle
+                            </option>
+
+                            <option value="39">
+                                Technological specialization
+                            </option>
+
+                            <option value="40">
+                                Higher education — degree
+                            </option>
+
+                            <option value="42">
+                                Professional higher technical course
+                            </option>
+
+                            <option value="43">
+                                Higher education — Master's
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Previous Qualification Grade</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            max="200"
+                            step="0.1"
+                            data-key="Previous qualification (grade)"
+                            placeholder="0 – 200"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="field">
+                        <label>Admission Grade</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            max="200"
+                            step="0.1"
+                            data-key="Admission grade"
+                            placeholder="0 – 200"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="field">
+                        <label>Mother's Qualification</label>
+
+                        <select
+                            data-key="Mother's qualification"
+                            required
+                        >
+                            <option value="">Choose qualification</option>
+                            <option value="1">Secondary education — 12th year</option>
+                            <option value="2">Higher education — Bachelor's</option>
+                            <option value="3">Higher education — Degree</option>
+                            <option value="4">Higher education — Master's</option>
+                            <option value="5">Higher education — Doctorate</option>
+                            <option value="6">Frequency of higher education</option>
+                            <option value="9">12th year — not completed</option>
+                            <option value="10">11th year — not completed</option>
+                            <option value="11">7th year (old)</option>
+                            <option value="12">Other — 11th year</option>
+                            <option value="14">10th year</option>
+                            <option value="18">General commerce course</option>
+                            <option value="19">Basic education 3rd cycle</option>
+                            <option value="22">Technical-professional course</option>
+                            <option value="26">7th year of schooling</option>
+                            <option value="27">2nd cycle general high school</option>
+                            <option value="29">9th year — not completed</option>
+                            <option value="30">8th year</option>
+                            <option value="34">Unknown</option>
+                            <option value="35">Cannot read or write</option>
+                            <option value="36">Can read without 4th year</option>
+                            <option value="37">Basic education 1st cycle</option>
+                            <option value="38">Basic education 2nd cycle</option>
+                            <option value="39">Technological specialization</option>
+                            <option value="40">Higher education — Degree</option>
+                            <option value="41">Specialized higher studies</option>
+                            <option value="42">Professional higher technical</option>
+                            <option value="43">Higher education — Master's</option>
+                            <option value="44">Higher education — Doctorate</option>
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Father's Qualification</label>
+
+                        <select
+                            data-key="Father's qualification"
+                            required
+                        >
+                            <option value="">Choose qualification</option>
+                            <option value="1">Secondary education — 12th year</option>
+                            <option value="2">Higher education — Bachelor's</option>
+                            <option value="3">Higher education — Degree</option>
+                            <option value="4">Higher education — Master's</option>
+                            <option value="5">Higher education — Doctorate</option>
+                            <option value="6">Frequency of higher education</option>
+                            <option value="9">12th year — not completed</option>
+                            <option value="10">11th year — not completed</option>
+                            <option value="11">7th year (old)</option>
+                            <option value="12">Other — 11th year</option>
+                            <option value="13">2nd year complementary high school</option>
+                            <option value="14">10th year</option>
+                            <option value="18">General commerce course</option>
+                            <option value="19">Basic education 3rd cycle</option>
+                            <option value="20">Complementary high school</option>
+                            <option value="22">Technical-professional course</option>
+                            <option value="25">Complementary high school — not concluded</option>
+                            <option value="26">7th year</option>
+                            <option value="27">2nd cycle general high school</option>
+                            <option value="29">9th year — not completed</option>
+                            <option value="30">8th year</option>
+                            <option value="31">General administration and commerce</option>
+                            <option value="33">Supplementary accounting and administration</option>
+                            <option value="34">Unknown</option>
+                            <option value="35">Cannot read or write</option>
+                            <option value="36">Can read without 4th year</option>
+                            <option value="37">Basic education 1st cycle</option>
+                            <option value="38">Basic education 2nd cycle</option>
+                            <option value="39">Technological specialization</option>
+                            <option value="40">Higher education — Degree</option>
+                            <option value="41">Specialized higher studies</option>
+                            <option value="42">Professional higher technical</option>
+                            <option value="43">Higher education — Master's</option>
+                            <option value="44">Higher education — Doctorate</option>
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Mother's Occupation</label>
+
+                        <select
+                            data-key="Mother's occupation"
+                            required
+                        >
+                            <option value="">Choose occupation</option>
+
+                            <option value="0">Student</option>
+                            <option value="1">Legislative / executive / management</option>
+                            <option value="2">Intellectual and scientific specialist</option>
+                            <option value="3">Intermediate technician / professional</option>
+                            <option value="4">Administrative staff</option>
+                            <option value="5">Personal service / security / sales</option>
+                            <option value="6">Agriculture / fisheries / forestry</option>
+                            <option value="7">Industry / construction / crafts</option>
+                            <option value="8">Machine operator / assembly worker</option>
+                            <option value="9">Unskilled worker</option>
+                            <option value="10">Armed forces</option>
+                            <option value="90">Other situation</option>
+                            <option value="99">Blank</option>
+                            <option value="122">Health professional</option>
+                            <option value="123">Teacher</option>
+                            <option value="125">ICT specialist</option>
+                            <option value="131">Science / engineering technician</option>
+                            <option value="132">Health technician</option>
+                            <option value="134">Legal / social / sports / cultural technician</option>
+                            <option value="141">Office worker / secretary</option>
+                            <option value="143">Accounting / financial operator</option>
+                            <option value="144">Administrative support</option>
+                            <option value="151">Personal service worker</option>
+                            <option value="152">Seller</option>
+                            <option value="153">Personal care worker</option>
+                            <option value="171">Skilled construction worker</option>
+                            <option value="173">Printing / precision instrument / artisan worker</option>
+                            <option value="175">Food / woodworking / clothing worker</option>
+                            <option value="191">Cleaning worker</option>
+                            <option value="192">Unskilled agriculture worker</option>
+                            <option value="193">Unskilled industry / construction worker</option>
+                            <option value="194">Meal preparation assistant</option>
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Father's Occupation</label>
+
+                        <select
+                            data-key="Father's occupation"
+                            required
+                        >
+                            <option value="">Choose occupation</option>
+
+                            <option value="0">Student</option>
+                            <option value="1">Legislative / executive / management</option>
+                            <option value="2">Intellectual and scientific specialist</option>
+                            <option value="3">Intermediate technician / professional</option>
+                            <option value="4">Administrative staff</option>
+                            <option value="5">Personal service / security / sales</option>
+                            <option value="6">Agriculture / fisheries / forestry</option>
+                            <option value="7">Industry / construction / crafts</option>
+                            <option value="8">Machine operator / assembly worker</option>
+                            <option value="9">Unskilled worker</option>
+                            <option value="10">Armed forces</option>
+                            <option value="90">Other situation</option>
+                            <option value="99">Blank</option>
+                            <option value="101">Armed forces officer</option>
+                            <option value="102">Armed forces sergeant</option>
+                            <option value="103">Other armed forces personnel</option>
+                            <option value="112">Administrative / commercial director</option>
+                            <option value="114">Hotel / catering / trade director</option>
+                            <option value="121">Physical science / mathematics / engineering specialist</option>
+                            <option value="122">Health professional</option>
+                            <option value="123">Teacher</option>
+                            <option value="124">Finance / accounting / administration specialist</option>
+                            <option value="131">Science / engineering technician</option>
+                            <option value="132">Health technician</option>
+                            <option value="134">Legal / social / sports / cultural technician</option>
+                            <option value="135">ICT technician</option>
+                            <option value="141">Office worker / secretary</option>
+                            <option value="143">Accounting / financial operator</option>
+                            <option value="144">Administrative support</option>
+                            <option value="151">Personal service worker</option>
+                            <option value="152">Seller</option>
+                            <option value="153">Personal care worker</option>
+                            <option value="154">Protection / security worker</option>
+                            <option value="161">Market-oriented agriculture worker</option>
+                            <option value="163">Subsistence farmer / fisherman / hunter</option>
+                            <option value="171">Skilled construction worker</option>
+                            <option value="172">Metallurgy / metalworking worker</option>
+                            <option value="174">Electricity / electronics worker</option>
+                            <option value="175">Food / woodworking / clothing worker</option>
+                            <option value="181">Fixed plant / machine operator</option>
+                            <option value="182">Assembly worker</option>
+                            <option value="183">Vehicle driver / mobile equipment operator</option>
+                            <option value="192">Unskilled agriculture worker</option>
+                            <option value="193">Unskilled industry / construction worker</option>
+                            <option value="194">Meal preparation assistant</option>
+                            <option value="195">Street vendor / street service provider</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 STATUS
+            ========================== -->
+
+            <section
+                id="status"
+                class="form-card"
+            >
+
+                <div class="section-header">
+
+                    <div class="section-icon green">
+                        ◉
+                    </div>
+
+                    <div>
+                        <span class="section-kicker">
+                            SECTION 03
+                        </span>
+
+                        <h2>Financial & Student Status</h2>
+
+                        <p>
+                            Financial obligations and support information.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="status-grid">
+
+                    <div class="status-field">
+                        <div>
+                            <strong>Debtor</strong>
+                            <span>Has outstanding financial obligations</span>
+                        </div>
+
+                        <select
+                            data-key="Debtor"
+                            required
+                        >
+                            <option value="">Select</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+
+
+                    <div class="status-field">
+                        <div>
+                            <strong>Tuition Fees Up to Date</strong>
+                            <span>Current tuition payment status</span>
+                        </div>
+
+                        <select
+                            data-key="Tuition fees up to date"
+                            required
+                        >
+                            <option value="">Select</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+
+
+                    <div class="status-field">
+                        <div>
+                            <strong>Scholarship Holder</strong>
+                            <span>Receives a scholarship</span>
+                        </div>
+
+                        <select
+                            data-key="Scholarship holder"
+                            required
+                        >
+                            <option value="">Select</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SEMESTER 1
+            ========================== -->
+
+            <section
+                id="semester1"
+                class="semester-card semester-one"
+            >
+
+                <div class="semester-heading">
+
+                    <div class="semester-number">
+                        01
+                    </div>
+
+                    <div>
+                        <span class="section-kicker">
+                            ACADEMIC PERFORMANCE
+                        </span>
+
+                        <h2>First Semester</h2>
+
+                        <p>
+                            Academic workload and results from semester one.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="metric-grid">
+
+                    <div class="metric-field">
+                        <label>Units Credited</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            data-key="Curricular units 1st sem (credited)"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="metric-field">
+                        <label>Units Enrolled</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            data-key="Curricular units 1st sem (enrolled)"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="metric-field">
+                        <label>Evaluations</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            data-key="Curricular units 1st sem (evaluations)"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="metric-field">
+                        <label>Units Approved</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            data-key="Curricular units 1st sem (approved)"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="metric-field grade-field">
+                        <label>Average Grade</label>
+
+                        <div class="grade-input">
+                            <input
+                                type="number"
+                                min="0"
+                                max="20"
+                                step="0.01"
+                                data-key="Curricular units 1st sem (grade)"
+                                placeholder="0 – 20"
+                                required
+                            >
+
+                            <span>/ 20</span>
+                        </div>
+                    </div>
+
+
+                    <div class="metric-field">
+                        <label>Without Evaluations</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            data-key="Curricular units 1st sem (without evaluations)"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SEMESTER 2
+            ========================== -->
+
+            <section
+                id="semester2"
+                class="semester-card semester-two"
+            >
+
+                <div class="semester-heading">
+
+                    <div class="semester-number">
+                        02
+                    </div>
+
+                    <div>
+                        <span class="section-kicker">
+                            ACADEMIC PERFORMANCE
+                        </span>
+
+                        <h2>Second Semester</h2>
+
+                        <p>
+                            Academic workload and results from semester two.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="metric-grid">
+
+                    <div class="metric-field">
+                        <label>Units Credited</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            data-key="Curricular units 2nd sem (credited)"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="metric-field">
+                        <label>Units Enrolled</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            data-key="Curricular units 2nd sem (enrolled)"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="metric-field">
+                        <label>Evaluations</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            data-key="Curricular units 2nd sem (evaluations)"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="metric-field">
+                        <label>Units Approved</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            data-key="Curricular units 2nd sem (approved)"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="metric-field grade-field">
+                        <label>Average Grade</label>
+
+                        <div class="grade-input">
+                            <input
+                                type="number"
+                                min="0"
+                                max="20"
+                                step="0.01"
+                                data-key="Curricular units 2nd sem (grade)"
+                                placeholder="0 – 20"
+                                required
+                            >
+
+                            <span>/ 20</span>
+                        </div>
+                    </div>
+
+
+                    <div class="metric-field">
+                        <label>Without Evaluations</label>
+
+                        <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            data-key="Curricular units 2nd sem (without evaluations)"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 ECONOMIC
+            ========================== -->
+
+            <section
+                id="economic"
+                class="form-card"
+            >
+
+                <div class="section-header">
+
+                    <div class="section-icon orange">
+                        ◌
+                    </div>
+
+                    <div>
+                        <span class="section-kicker">
+                            SECTION 06
+                        </span>
+
+                        <h2>Economic Context</h2>
+
+                        <p>
+                            Macroeconomic indicators included in the dataset.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="economic-grid">
+
+                    <div class="economic-field">
+                        <span>UNEMPLOYMENT</span>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            data-key="Unemployment rate"
+                            placeholder="%"
+                            required
+                        >
+
+                        <small>
+                            Unemployment rate (%)
+                        </small>
+                    </div>
+
+
+                    <div class="economic-field">
+                        <span>INFLATION</span>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            data-key="Inflation rate"
+                            placeholder="%"
+                            required
+                        >
+
+                        <small>
+                            Inflation rate (%)
+                        </small>
+                    </div>
+
+
+                    <div class="economic-field">
+                        <span>GDP</span>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            data-key="GDP"
+                            placeholder="GDP value"
+                            required
+                        >
+
+                        <small>
+                            Gross domestic product
+                        </small>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SUBMIT
+            ========================== -->
+
+            <section class="prediction-area">
+
+                <div class="prediction-copy">
+
+                    <span class="prediction-icon">
+                        ✦
+                    </span>
+
+                    <div>
+                        <span class="prediction-label">
+                            READY TO ANALYSE
+                        </span>
+
+                        <h3>
+                            Generate student outcome
+                        </h3>
+
+                        <p>
+                            The backend will engineer the required ML features
+                            and run the trained Random Forest model.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <button
+                    id="predict-button"
+                    class="predict-button"
+                    type="submit"
+                >
+
+                    <span class="button-text">
+                        Predict Outcome
+                    </span>
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+
+                </button>
+
+            </section>
+
+        </form>
+
+
+        <!-- =========================
+             ERROR
+        ========================== -->
+
+        <div
+            id="error-message"
+            class="error-message hidden"
+        >
+            <span>!</span>
+
+            <div>
+                <strong>Prediction failed</strong>
+
+                <p id="error-text"></p>
+            </div>
+        </div>
+
+
+        <!-- =========================
+             RESULT
+        ========================== -->
+
+        <section
+            id="result-section"
+            class="result-section hidden"
+        >
+
+            <div class="result-top">
+
+                <div>
+                    <span class="section-kicker">
+                        MODEL OUTPUT
+                    </span>
+
+                    <h2>Prediction Result</h2>
+                </div>
+
+                <button
+                    id="new-prediction"
+                    class="new-button"
+                    type="button"
+                >
+                    + New Prediction
+                </button>
+
+            </div>
+
+
+            <div class="result-layout">
+
+                <div
+                    id="prediction-card"
+                    class="prediction-card"
+                >
+
+                    <span class="result-label">
+                        PREDICTED OUTCOME
+                    </span>
+
+                    <div
+                        id="prediction-value"
+                        class="prediction-value"
+                    >
+                        —
+                    </div>
+
+                    <p>
+                        The Random Forest model's predicted class
+                        for this student.
+                    </p>
+
+                </div>
+
+
+                <div class="probability-card">
+
+                    <div class="probability-heading">
+
+                        <div>
+                            <span class="result-label">
+                                CLASS DISTRIBUTION
+                            </span>
+
+                            <h3>Model probabilities</h3>
+                        </div>
+
+                        <span class="rf-badge">
+                            RF
+                        </span>
+
+                    </div>
+
+
+                    <div class="probability">
+
+                        <div class="probability-label">
+                            <span>Dropout</span>
+                            <strong id="dropout-probability">
+                                0%
+                            </strong>
+                        </div>
+
+                        <div class="bar">
+                            <div
+                                id="dropout-bar"
+                                class="bar-fill dropout"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="probability">
+
+                        <div class="probability-label">
+                            <span>Enrolled</span>
+                            <strong id="enrolled-probability">
+                                0%
+                            </strong>
+                        </div>
+
+                        <div class="bar">
+                            <div
+                                id="enrolled-bar"
+                                class="bar-fill enrolled"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="probability">
+
+                        <div class="probability-label">
+                            <span>Graduate</span>
+                            <strong id="graduate-probability">
+                                0%
+                            </strong>
+                        </div>
+
+                        <div class="bar">
+                            <div
+                                id="graduate-bar"
+                                class="bar-fill graduate"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-disclaimer">
+
+                <span>i</span>
+
+                <p>
+                    These values are the model's probability estimates
+                    for each class and should not be interpreted as
+                    guaranteed outcomes.
+                </p>
+
+            </div>
+
+        </section>
+
 
         <footer>
-
-            <span>
-                Student Success Predictor
-            </span>
-
-            <span class="footer-divider">
-                •
-            </span>
-
-            <span>
-                Machine Learning Project
-            </span>
-
+            StudentIQ · Student Dropout & Academic Success Prediction
         </footer>
 
-    </div>
+    </main>
+
+</div>
 
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>

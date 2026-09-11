@@ -1,24 +1,19 @@
-// =========================================================
-// CONFIGURATION
-// =========================================================
+// ============================================================
+// API CONFIGURATION
+// ============================================================
 
 const API_URL = "http://127.0.0.1:8000";
 
 
-// =========================================================
-// DOM ELEMENTS
-// =========================================================
+// ============================================================
+// DOM
+// ============================================================
 
-const form = document.getElementById("prediction-form");
+const form =
+    document.getElementById("prediction-form");
 
 const predictButton =
     document.getElementById("predict-button");
-
-const errorMessage =
-    document.getElementById("error-message");
-
-const errorText =
-    document.getElementById("error-text");
 
 const resultSection =
     document.getElementById("result-section");
@@ -26,11 +21,20 @@ const resultSection =
 const predictionValue =
     document.getElementById("prediction-value");
 
+const predictionCard =
+    document.getElementById("prediction-card");
+
+const errorMessage =
+    document.getElementById("error-message");
+
+const errorText =
+    document.getElementById("error-text");
+
 const newPredictionButton =
     document.getElementById("new-prediction");
 
 
-// Probability text elements
+// Probability labels
 
 const dropoutProbability =
     document.getElementById("dropout-probability");
@@ -54,124 +58,116 @@ const graduateBar =
     document.getElementById("graduate-bar");
 
 
-// =========================================================
-// INPUT TYPES
-// =========================================================
-//
-// Every input is either:
-//   - number
-//   - binary
-//
-// All values are converted to JavaScript Numbers before
-// being sent to FastAPI.
-//
-// The backend creates the five engineered features.
-// =========================================================
+// ============================================================
+// SUBMIT
+// ============================================================
 
-const binaryFields = new Set([
-    "Displaced",
-    "Educational special needs",
-    "Debtor",
-    "Tuition fees up to date",
-    "Gender",
-    "Scholarship holder",
-    "International"
-]);
+form.addEventListener(
+    "submit",
+    async (event) => {
+
+        event.preventDefault();
+
+        hideError();
 
 
-// =========================================================
-// FORM SUBMISSION
-// =========================================================
+        // Browser validation
 
-form.addEventListener("submit", async (event) => {
+        if (!form.checkValidity()) {
 
-    event.preventDefault();
+            form.reportValidity();
 
-    hideError();
-
-    // Browser-level validation
-
-    if (!form.checkValidity()) {
-
-        form.reportValidity();
-
-        return;
-    }
-
-
-    try {
-
-        setLoading(true);
-
-        const studentData =
-            collectStudentData();
-
-
-        console.log(
-            "Sending student data:",
-            studentData
-        );
-
-
-        const response = await fetch(
-            `${API_URL}/predict`,
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify(studentData)
-            }
-        );
-
-
-        const responseData =
-            await response.json();
-
-
-        // -------------------------------------------------
-        // Backend returned an HTTP error
-        // -------------------------------------------------
-
-        if (!response.ok) {
-
-            const message =
-                responseData.detail ||
-                "The prediction request failed.";
-
-            throw new Error(message);
+            return;
         }
 
 
-        // -------------------------------------------------
-        // Successful prediction
-        // -------------------------------------------------
+        try {
 
-        displayPrediction(responseData);
+            setLoading(true);
 
-    } catch (error) {
 
-        console.error(
-            "Prediction error:",
-            error
-        );
+            // ----------------------------------------------
+            // Build the 36-feature dataset JSON
+            // ----------------------------------------------
 
-        showError(
-            getReadableError(error)
-        );
+            const studentData =
+                collectStudentData();
 
-    } finally {
 
-        setLoading(false);
+            console.log(
+                "Student JSON:",
+                studentData
+            );
+
+
+            // ----------------------------------------------
+            // Send to FastAPI
+            // ----------------------------------------------
+
+            const response =
+                await fetch(
+                    `${API_URL}/predict`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(
+                                studentData
+                            )
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            // ----------------------------------------------
+            // Handle backend errors
+            // ----------------------------------------------
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.detail ||
+                    "Prediction request failed."
+                );
+            }
+
+
+            // ----------------------------------------------
+            // Display result
+            // ----------------------------------------------
+
+            displayResult(result);
+
+        } catch (error) {
+
+            console.error(
+                "Prediction error:",
+                error
+            );
+
+            showError(
+                readableError(error)
+            );
+
+        } finally {
+
+            setLoading(false);
+        }
     }
-});
+);
 
 
-// =========================================================
-// COLLECT STUDENT DATA
-// =========================================================
+// ============================================================
+// COLLECT 36 ORIGINAL FEATURES
+// ============================================================
 
 function collectStudentData() {
 
@@ -183,150 +179,172 @@ function collectStudentData() {
         );
 
 
-    fields.forEach((field) => {
+    fields.forEach(
+        (field) => {
 
-        const key =
-            field.dataset.key;
+            const key =
+                field.dataset.key;
 
-        const rawValue =
-            field.value.trim();
-
-
-        if (rawValue === "") {
-
-            throw new Error(
-                `${key} is required.`
-            );
-        }
+            const rawValue =
+                field.value.trim();
 
 
-        const numericValue =
-            Number(rawValue);
+            if (rawValue === "") {
+
+                throw new Error(
+                    `${key} is required.`
+                );
+            }
 
 
-        if (!Number.isFinite(numericValue)) {
-
-            throw new Error(
-                `${key} must contain a valid number.`
-            );
-        }
+            const value =
+                Number(rawValue);
 
 
-        // Binary fields are integers.
+            if (!Number.isFinite(value)) {
 
-        if (binaryFields.has(key)) {
+                throw new Error(
+                    `${key} must be a valid number.`
+                );
+            }
+
 
             data[key] =
-                Math.round(numericValue);
-
-        } else {
-
-            data[key] =
-                numericValue;
+                value;
         }
-
-    });
+    );
 
 
     return data;
 }
 
 
-// =========================================================
-// DISPLAY PREDICTION
-// =========================================================
+// ============================================================
+// DISPLAY RESULT
+// ============================================================
 
-function displayPrediction(result) {
+function displayResult(result) {
 
     const prediction =
         result.prediction;
-
 
     const probabilities =
         result.probabilities || {};
 
 
-    // -----------------------------------------------------
-    // Prediction label
-    // -----------------------------------------------------
+    // ----------------------------------------------
+    // Main prediction
+    // ----------------------------------------------
 
     predictionValue.textContent =
         prediction;
 
 
-    // -----------------------------------------------------
-    // Probability values
-    // -----------------------------------------------------
+    // ----------------------------------------------
+    // Prediction styling
+    // ----------------------------------------------
 
-    const dropout =
-        getProbability(
-            probabilities,
-            "Dropout"
-        );
-
-    const enrolled =
-        getProbability(
-            probabilities,
-            "Enrolled"
-        );
-
-    const graduate =
-        getProbability(
-            probabilities,
-            "Graduate"
-        );
-
-
-    // -----------------------------------------------------
-    // Text
-    // -----------------------------------------------------
-
-    dropoutProbability.textContent =
-        formatProbability(dropout);
-
-    enrolledProbability.textContent =
-        formatProbability(enrolled);
-
-    graduateProbability.textContent =
-        formatProbability(graduate);
-
-
-    // -----------------------------------------------------
-    // Progress bars
-    // -----------------------------------------------------
-
-    requestAnimationFrame(() => {
-
-        dropoutBar.style.width =
-            `${dropout * 100}%`;
-
-        enrolledBar.style.width =
-            `${enrolled * 100}%`;
-
-        graduateBar.style.width =
-            `${graduate * 100}%`;
-    });
-
-
-    // -----------------------------------------------------
-    // Prediction colour/state
-    // -----------------------------------------------------
-
-    updatePredictionStyle(
-        prediction
+    predictionCard.classList.remove(
+        "prediction-dropout",
+        "prediction-enrolled",
+        "prediction-graduate"
     );
 
 
-    // -----------------------------------------------------
-    // Show result
-    // -----------------------------------------------------
+    if (prediction === "Dropout") {
+
+        predictionCard.classList.add(
+            "prediction-dropout"
+        );
+
+        predictionValue.style.color =
+            "var(--red)";
+
+    } else if (
+        prediction === "Enrolled"
+    ) {
+
+        predictionCard.classList.add(
+            "prediction-enrolled"
+        );
+
+        predictionValue.style.color =
+            "var(--orange)";
+
+    } else if (
+        prediction === "Graduate"
+    ) {
+
+        predictionCard.classList.add(
+            "prediction-graduate"
+        );
+
+        predictionValue.style.color =
+            "var(--green)";
+    }
+
+
+    // ----------------------------------------------
+    // Probabilities
+    // ----------------------------------------------
+
+    const dropout =
+        safeProbability(
+            probabilities.Dropout
+        );
+
+    const enrolled =
+        safeProbability(
+            probabilities.Enrolled
+        );
+
+    const graduate =
+        safeProbability(
+            probabilities.Graduate
+        );
+
+
+    // ----------------------------------------------
+    // Text
+    // ----------------------------------------------
+
+    dropoutProbability.textContent =
+        percentage(dropout);
+
+    enrolledProbability.textContent =
+        percentage(enrolled);
+
+    graduateProbability.textContent =
+        percentage(graduate);
+
+
+    // ----------------------------------------------
+    // Bars
+    // ----------------------------------------------
+
+    requestAnimationFrame(
+        () => {
+
+            dropoutBar.style.width =
+                `${dropout * 100}%`;
+
+            enrolledBar.style.width =
+                `${enrolled * 100}%`;
+
+            graduateBar.style.width =
+                `${graduate * 100}%`;
+        }
+    );
+
+
+    // ----------------------------------------------
+    // Show
+    // ----------------------------------------------
 
     resultSection.classList.remove(
         "hidden"
     );
 
-
-    // Scroll to result
 
     resultSection.scrollIntoView({
         behavior: "smooth",
@@ -335,44 +353,37 @@ function displayPrediction(result) {
 }
 
 
-// =========================================================
-// GET PROBABILITY
-// =========================================================
+// ============================================================
+// PROBABILITY SAFETY
+// ============================================================
 
-function getProbability(
-    probabilities,
-    className
-) {
+function safeProbability(value) {
 
-    const value =
-        Number(
-            probabilities[className] ?? 0
-        );
+    const number =
+        Number(value);
 
 
-    if (!Number.isFinite(value)) {
+    if (!Number.isFinite(number)) {
 
         return 0;
     }
 
 
-    // Keep the value between 0 and 1.
-
     return Math.max(
         0,
         Math.min(
             1,
-            value
+            number
         )
     );
 }
 
 
-// =========================================================
-// FORMAT PROBABILITY
-// =========================================================
+// ============================================================
+// FORMAT %
+ // ============================================================
 
-function formatProbability(value) {
+function percentage(value) {
 
     return `${(
         value * 100
@@ -380,68 +391,38 @@ function formatProbability(value) {
 }
 
 
-// =========================================================
-// PREDICTION STYLE
-// =========================================================
+// ============================================================
+// LOADING
+// ============================================================
 
-function updatePredictionStyle(
-    prediction
-) {
-
-    predictionValue.style.color =
-        "";
-
-
-    if (prediction === "Dropout") {
-
-        predictionValue.style.color =
-            "var(--danger)";
-
-    } else if (prediction === "Enrolled") {
-
-        predictionValue.style.color =
-            "var(--warning)";
-
-    } else if (prediction === "Graduate") {
-
-        predictionValue.style.color =
-            "var(--success)";
-    }
-}
-
-
-// =========================================================
-// LOADING STATE
-// =========================================================
-
-function setLoading(isLoading) {
+function setLoading(loading) {
 
     predictButton.disabled =
-        isLoading;
+        loading;
 
 
-    const buttonText =
+    const text =
         predictButton.querySelector(
             ".button-text"
         );
 
 
-    if (isLoading) {
+    if (loading) {
 
-        buttonText.textContent =
-            "Analysing...";
+        text.textContent =
+            "Analysing student...";
 
     } else {
 
-        buttonText.textContent =
+        text.textContent =
             "Predict Outcome";
     }
 }
 
 
-// =========================================================
-// ERROR HANDLING
-// =========================================================
+// ============================================================
+// ERRORS
+// ============================================================
 
 function showError(message) {
 
@@ -471,18 +452,11 @@ function hideError() {
 }
 
 
-// =========================================================
-// READABLE ERROR MESSAGE
-// =========================================================
-
-function getReadableError(error) {
+function readableError(error) {
 
     const message =
-        error?.message ||
-        "";
+        error?.message || "";
 
-
-    // Backend unavailable
 
     if (
         message.includes(
@@ -491,37 +465,110 @@ function getReadableError(error) {
     ) {
 
         return (
-            "Could not connect to the prediction API. " +
-            "Make sure the FastAPI server is running on " +
+            "The prediction API could not be reached. " +
+            "Make sure FastAPI is running on " +
             "http://127.0.0.1:8000."
         );
     }
 
 
-    return message ||
-        "Something went wrong while making the prediction.";
+    return (
+        message ||
+        "An unexpected error occurred."
+    );
 }
 
 
-// =========================================================
+// ============================================================
 // NEW PREDICTION
-// =========================================================
+// ============================================================
 
 newPredictionButton.addEventListener(
     "click",
     () => {
+
+        form.reset();
+
 
         resultSection.classList.add(
             "hidden"
         );
 
 
-        form.reset();
+        hideError();
 
 
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
+    }
+);
+
+
+// ============================================================
+// SIDEBAR ACTIVE SECTION
+// ============================================================
+
+const sections =
+    document.querySelectorAll(
+        "section[id]"
+    );
+
+const navigationSteps =
+    document.querySelectorAll(
+        ".step"
+    );
+
+
+const observer =
+    new IntersectionObserver(
+        (entries) => {
+
+            entries.forEach(
+                (entry) => {
+
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+
+
+                    navigationSteps.forEach(
+                        (step) => {
+
+                            step.classList.remove(
+                                "active"
+                            );
+                        }
+                    );
+
+
+                    const activeStep =
+                        document.querySelector(
+                            `.step[href="#${entry.target.id}"]`
+                        );
+
+
+                    if (activeStep) {
+
+                        activeStep.classList.add(
+                            "active"
+                        );
+                    }
+                }
+            );
+
+        },
+        {
+            rootMargin:
+                "-25% 0px -65% 0px"
+        }
+    );
+
+
+sections.forEach(
+    (section) => {
+
+        observer.observe(section);
     }
 );
